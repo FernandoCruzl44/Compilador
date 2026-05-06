@@ -80,3 +80,16 @@ def p_FOR_for(p):
 
 # E -> Expresion
 def p_E_expresion(p):
+    '''
+        expresion : expresionS MEQ expresionS | expresionS MAQ expresionS | expresionS MEI expresionS | expresionS MAI expresionS | expresionS IGUAL expresionS | expresionS 
+    '''
+
+def p_ES_expresionS(p):
+    '''
+        expresionS : expresionS SUMA termino | expresionS RESTA termino | expresionS OR termino | termino
+    '''
+
+def p_T_termino(p):
+    '''
+        termino : termino MULTIPLICAR factor | termino DIVIDIR factor | termino AND factor | factor
+    '''
