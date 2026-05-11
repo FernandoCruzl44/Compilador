@@ -1,0 +1,1929 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAM ID ILLAVE variables bloque DLLAVE
+Rule 2     variables -> VAR ids DOSPUNTOS TypeOf PUNTOYCOMA
+Rule 3     variables -> empty
+Rule 4     ids -> ID
+Rule 5     ids -> ids COMA ID
+Rule 6     TypeOf -> INT
+Rule 7     TypeOf -> FLOAT
+Rule 8     TypeOf -> BOOL
+Rule 9     TypeOf -> STRING
+Rule 10    bloque -> BEGIN PUNTOYCOMA estatutos END PUNTOYCOMA
+Rule 11    estatuto -> asignar
+Rule 12    estatuto -> if
+Rule 13    estatuto -> while
+Rule 14    estatuto -> for
+Rule 15    estatuto -> writeln
+Rule 16    estatuto -> incremento PUNTOYCOMA
+Rule 17    estatutos -> estatuto estatutos
+Rule 18    estatutos -> empty
+Rule 19    asignar -> ID ASSIGNAR expresion PUNTOYCOMA
+Rule 20    writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA
+Rule 21    valor -> CTE
+Rule 22    valor -> ID
+Rule 23    valor -> STRING
+Rule 24    if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+Rule 25    if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+Rule 26    while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+Rule 27    incremento -> ID INCREMENTO
+Rule 28    incremento -> ID DECREMENTO
+Rule 29    incremento -> asignar
+Rule 30    for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+Rule 31    expresion -> expresionS MEQ expresionS
+Rule 32    expresion -> expresionS MAQ expresionS
+Rule 33    expresion -> expresionS MEI expresionS
+Rule 34    expresion -> expresionS MAI expresionS
+Rule 35    expresion -> expresionS IGUAL expresionS
+Rule 36    expresion -> expresionS DISTINTO expresionS
+Rule 37    expresion -> expresionS
+Rule 38    expresionS -> expresionS SUMA termino
+Rule 39    expresionS -> expresionS RESTA termino
+Rule 40    expresionS -> expresionS OR termino
+Rule 41    expresionS -> termino
+Rule 42    termino -> termino MULTIPLICAR factor
+Rule 43    termino -> termino DIVIDIR factor
+Rule 44    termino -> termino AND factor
+Rule 45    termino -> factor
+Rule 46    factor -> ID
+Rule 47    factor -> CTE
+Rule 48    factor -> IPAREN expresion DPAREN
+Rule 49    factor -> TRUE
+Rule 50    factor -> FALSE
+Rule 51    factor -> NOT factor
+Rule 52    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 44
+ASSIGNAR             : 19
+BEGIN                : 10
+BOOL                 : 8
+COMA                 : 5
+CTE                  : 21 47
+DECREMENTO           : 28
+DISTINTO             : 36
+DIVIDIR              : 43
+DLLAVE               : 1 24 25 25 26 30
+DO                   : 26
+DOSPUNTOS            : 2
+DPAREN               : 20 24 25 26 30 48
+ELSE                 : 25
+END                  : 10
+FALSE                : 50
+FLOAT                : 7
+FOR                  : 30
+ID                   : 1 4 5 19 22 27 28 46
+IF                   : 24 25
+IGUAL                : 35
+ILLAVE               : 1 24 25 25 26 30
+INCREMENTO           : 27
+INT                  : 6
+IPAREN               : 20 24 25 26 30 48
+MAI                  : 34
+MAQ                  : 32
+MEI                  : 33
+MEQ                  : 31
+MULTIPLICAR          : 42
+NOT                  : 51
+OR                   : 40
+PROGRAM              : 1
+PUNTOYCOMA           : 2 10 10 16 19 20 30
+RESTA                : 39
+STRING               : 9 23
+SUMA                 : 38
+THEN                 : 24 25
+TRUE                 : 49
+VAR                  : 2
+WHILE                : 26
+WRITELN              : 20
+error                : 
+
+Nonterminals, with rules where they appear
+
+TypeOf               : 2
+asignar              : 11 29 30
+bloque               : 1
+empty                : 3 18
+estatuto             : 17
+estatutos            : 10 17 24 25 25 26 30
+expresion            : 19 24 25 26 30 48
+expresionS           : 31 31 32 32 33 33 34 34 35 35 36 36 37 38 39 40
+factor               : 42 43 44 45 51
+for                  : 14
+ids                  : 2 5
+if                   : 12
+incremento           : 16 30
+programa             : 0
+termino              : 38 39 40 41 42 43 44
+valor                : 20
+variables            : 1
+while                : 13
+writeln              : 15
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAM ID ILLAVE variables bloque DLLAVE
+
+    PROGRAM         shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAM . ID ILLAVE variables bloque DLLAVE
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAM ID . ILLAVE variables bloque DLLAVE
+
+    ILLAVE          shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAM ID ILLAVE . variables bloque DLLAVE
+    (2) variables -> . VAR ids DOSPUNTOS TypeOf PUNTOYCOMA
+    (3) variables -> . empty
+    (52) empty -> .
+
+    VAR             shift and go to state 6
+    BEGIN           reduce using rule 52 (empty -> .)
+
+    variables                      shift and go to state 5
+    empty                          shift and go to state 7
+
+state 5
+
+    (1) programa -> PROGRAM ID ILLAVE variables . bloque DLLAVE
+    (10) bloque -> . BEGIN PUNTOYCOMA estatutos END PUNTOYCOMA
+
+    BEGIN           shift and go to state 9
+
+    bloque                         shift and go to state 8
+
+state 6
+
+    (2) variables -> VAR . ids DOSPUNTOS TypeOf PUNTOYCOMA
+    (4) ids -> . ID
+    (5) ids -> . ids COMA ID
+
+    ID              shift and go to state 11
+
+    ids                            shift and go to state 10
+
+state 7
+
+    (3) variables -> empty .
+
+    BEGIN           reduce using rule 3 (variables -> empty .)
+
+
+state 8
+
+    (1) programa -> PROGRAM ID ILLAVE variables bloque . DLLAVE
+
+    DLLAVE          shift and go to state 12
+
+
+state 9
+
+    (10) bloque -> BEGIN . PUNTOYCOMA estatutos END PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 13
+
+
+state 10
+
+    (2) variables -> VAR ids . DOSPUNTOS TypeOf PUNTOYCOMA
+    (5) ids -> ids . COMA ID
+
+    DOSPUNTOS       shift and go to state 14
+    COMA            shift and go to state 15
+
+
+state 11
+
+    (4) ids -> ID .
+
+    DOSPUNTOS       reduce using rule 4 (ids -> ID .)
+    COMA            reduce using rule 4 (ids -> ID .)
+
+
+state 12
+
+    (1) programa -> PROGRAM ID ILLAVE variables bloque DLLAVE .
+
+    $end            reduce using rule 1 (programa -> PROGRAM ID ILLAVE variables bloque DLLAVE .)
+
+
+state 13
+
+    (10) bloque -> BEGIN PUNTOYCOMA . estatutos END PUNTOYCOMA
+    (17) estatutos -> . estatuto estatutos
+    (18) estatutos -> . empty
+    (11) estatuto -> . asignar
+    (12) estatuto -> . if
+    (13) estatuto -> . while
+    (14) estatuto -> . for
+    (15) estatuto -> . writeln
+    (16) estatuto -> . incremento PUNTOYCOMA
+    (52) empty -> .
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+    (24) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (26) while -> . WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+    (30) for -> . FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (20) writeln -> . WRITELN IPAREN valor DPAREN PUNTOYCOMA
+    (27) incremento -> . ID INCREMENTO
+    (28) incremento -> . ID DECREMENTO
+    (29) incremento -> . asignar
+
+    END             reduce using rule 52 (empty -> .)
+    ID              shift and go to state 25
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    FOR             shift and go to state 28
+    WRITELN         shift and go to state 29
+
+    estatutos                      shift and go to state 16
+    estatuto                       shift and go to state 17
+    empty                          shift and go to state 18
+    asignar                        shift and go to state 19
+    if                             shift and go to state 20
+    while                          shift and go to state 21
+    for                            shift and go to state 22
+    writeln                        shift and go to state 23
+    incremento                     shift and go to state 24
+
+state 14
+
+    (2) variables -> VAR ids DOSPUNTOS . TypeOf PUNTOYCOMA
+    (6) TypeOf -> . INT
+    (7) TypeOf -> . FLOAT
+    (8) TypeOf -> . BOOL
+    (9) TypeOf -> . STRING
+
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    BOOL            shift and go to state 33
+    STRING          shift and go to state 34
+
+    TypeOf                         shift and go to state 30
+
+state 15
+
+    (5) ids -> ids COMA . ID
+
+    ID              shift and go to state 35
+
+
+state 16
+
+    (10) bloque -> BEGIN PUNTOYCOMA estatutos . END PUNTOYCOMA
+
+    END             shift and go to state 36
+
+
+state 17
+
+    (17) estatutos -> estatuto . estatutos
+    (17) estatutos -> . estatuto estatutos
+    (18) estatutos -> . empty
+    (11) estatuto -> . asignar
+    (12) estatuto -> . if
+    (13) estatuto -> . while
+    (14) estatuto -> . for
+    (15) estatuto -> . writeln
+    (16) estatuto -> . incremento PUNTOYCOMA
+    (52) empty -> .
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+    (24) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (26) while -> . WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+    (30) for -> . FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (20) writeln -> . WRITELN IPAREN valor DPAREN PUNTOYCOMA
+    (27) incremento -> . ID INCREMENTO
+    (28) incremento -> . ID DECREMENTO
+    (29) incremento -> . asignar
+
+    END             reduce using rule 52 (empty -> .)
+    DLLAVE          reduce using rule 52 (empty -> .)
+    ID              shift and go to state 25
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    FOR             shift and go to state 28
+    WRITELN         shift and go to state 29
+
+    estatuto                       shift and go to state 17
+    estatutos                      shift and go to state 37
+    empty                          shift and go to state 18
+    asignar                        shift and go to state 19
+    if                             shift and go to state 20
+    while                          shift and go to state 21
+    for                            shift and go to state 22
+    writeln                        shift and go to state 23
+    incremento                     shift and go to state 24
+
+state 18
+
+    (18) estatutos -> empty .
+
+    END             reduce using rule 18 (estatutos -> empty .)
+    DLLAVE          reduce using rule 18 (estatutos -> empty .)
+
+
+state 19
+
+    (11) estatuto -> asignar .
+    (29) incremento -> asignar .
+
+    ID              reduce using rule 11 (estatuto -> asignar .)
+    IF              reduce using rule 11 (estatuto -> asignar .)
+    WHILE           reduce using rule 11 (estatuto -> asignar .)
+    FOR             reduce using rule 11 (estatuto -> asignar .)
+    WRITELN         reduce using rule 11 (estatuto -> asignar .)
+    END             reduce using rule 11 (estatuto -> asignar .)
+    DLLAVE          reduce using rule 11 (estatuto -> asignar .)
+    PUNTOYCOMA      reduce using rule 29 (incremento -> asignar .)
+
+
+state 20
+
+    (12) estatuto -> if .
+
+    ID              reduce using rule 12 (estatuto -> if .)
+    IF              reduce using rule 12 (estatuto -> if .)
+    WHILE           reduce using rule 12 (estatuto -> if .)
+    FOR             reduce using rule 12 (estatuto -> if .)
+    WRITELN         reduce using rule 12 (estatuto -> if .)
+    END             reduce using rule 12 (estatuto -> if .)
+    DLLAVE          reduce using rule 12 (estatuto -> if .)
+
+
+state 21
+
+    (13) estatuto -> while .
+
+    ID              reduce using rule 13 (estatuto -> while .)
+    IF              reduce using rule 13 (estatuto -> while .)
+    WHILE           reduce using rule 13 (estatuto -> while .)
+    FOR             reduce using rule 13 (estatuto -> while .)
+    WRITELN         reduce using rule 13 (estatuto -> while .)
+    END             reduce using rule 13 (estatuto -> while .)
+    DLLAVE          reduce using rule 13 (estatuto -> while .)
+
+
+state 22
+
+    (14) estatuto -> for .
+
+    ID              reduce using rule 14 (estatuto -> for .)
+    IF              reduce using rule 14 (estatuto -> for .)
+    WHILE           reduce using rule 14 (estatuto -> for .)
+    FOR             reduce using rule 14 (estatuto -> for .)
+    WRITELN         reduce using rule 14 (estatuto -> for .)
+    END             reduce using rule 14 (estatuto -> for .)
+    DLLAVE          reduce using rule 14 (estatuto -> for .)
+
+
+state 23
+
+    (15) estatuto -> writeln .
+
+    ID              reduce using rule 15 (estatuto -> writeln .)
+    IF              reduce using rule 15 (estatuto -> writeln .)
+    WHILE           reduce using rule 15 (estatuto -> writeln .)
+    FOR             reduce using rule 15 (estatuto -> writeln .)
+    WRITELN         reduce using rule 15 (estatuto -> writeln .)
+    END             reduce using rule 15 (estatuto -> writeln .)
+    DLLAVE          reduce using rule 15 (estatuto -> writeln .)
+
+
+state 24
+
+    (16) estatuto -> incremento . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 38
+
+
+state 25
+
+    (19) asignar -> ID . ASSIGNAR expresion PUNTOYCOMA
+    (27) incremento -> ID . INCREMENTO
+    (28) incremento -> ID . DECREMENTO
+
+    ASSIGNAR        shift and go to state 39
+    INCREMENTO      shift and go to state 40
+    DECREMENTO      shift and go to state 41
+
+
+state 26
+
+    (24) if -> IF . IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> IF . IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+
+    IPAREN          shift and go to state 42
+
+
+state 27
+
+    (26) while -> WHILE . IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+
+    IPAREN          shift and go to state 43
+
+
+state 28
+
+    (30) for -> FOR . IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+
+    IPAREN          shift and go to state 44
+
+
+state 29
+
+    (20) writeln -> WRITELN . IPAREN valor DPAREN PUNTOYCOMA
+
+    IPAREN          shift and go to state 45
+
+
+state 30
+
+    (2) variables -> VAR ids DOSPUNTOS TypeOf . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 46
+
+
+state 31
+
+    (6) TypeOf -> INT .
+
+    PUNTOYCOMA      reduce using rule 6 (TypeOf -> INT .)
+
+
+state 32
+
+    (7) TypeOf -> FLOAT .
+
+    PUNTOYCOMA      reduce using rule 7 (TypeOf -> FLOAT .)
+
+
+state 33
+
+    (8) TypeOf -> BOOL .
+
+    PUNTOYCOMA      reduce using rule 8 (TypeOf -> BOOL .)
+
+
+state 34
+
+    (9) TypeOf -> STRING .
+
+    PUNTOYCOMA      reduce using rule 9 (TypeOf -> STRING .)
+
+
+state 35
+
+    (5) ids -> ids COMA ID .
+
+    DOSPUNTOS       reduce using rule 5 (ids -> ids COMA ID .)
+    COMA            reduce using rule 5 (ids -> ids COMA ID .)
+
+
+state 36
+
+    (10) bloque -> BEGIN PUNTOYCOMA estatutos END . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 47
+
+
+state 37
+
+    (17) estatutos -> estatuto estatutos .
+
+    END             reduce using rule 17 (estatutos -> estatuto estatutos .)
+    DLLAVE          reduce using rule 17 (estatutos -> estatuto estatutos .)
+
+
+state 38
+
+    (16) estatuto -> incremento PUNTOYCOMA .
+
+    ID              reduce using rule 16 (estatuto -> incremento PUNTOYCOMA .)
+    IF              reduce using rule 16 (estatuto -> incremento PUNTOYCOMA .)
+    WHILE           reduce using rule 16 (estatuto -> incremento PUNTOYCOMA .)
+    FOR             reduce using rule 16 (estatuto -> incremento PUNTOYCOMA .)
+    WRITELN         reduce using rule 16 (estatuto -> incremento PUNTOYCOMA .)
+    END             reduce using rule 16 (estatuto -> incremento PUNTOYCOMA .)
+    DLLAVE          reduce using rule 16 (estatuto -> incremento PUNTOYCOMA .)
+
+
+state 39
+
+    (19) asignar -> ID ASSIGNAR . expresion PUNTOYCOMA
+    (31) expresion -> . expresionS MEQ expresionS
+    (32) expresion -> . expresionS MAQ expresionS
+    (33) expresion -> . expresionS MEI expresionS
+    (34) expresion -> . expresionS MAI expresionS
+    (35) expresion -> . expresionS IGUAL expresionS
+    (36) expresion -> . expresionS DISTINTO expresionS
+    (37) expresion -> . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresion                      shift and go to state 49
+    expresionS                     shift and go to state 50
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 40
+
+    (27) incremento -> ID INCREMENTO .
+
+    PUNTOYCOMA      reduce using rule 27 (incremento -> ID INCREMENTO .)
+    DPAREN          reduce using rule 27 (incremento -> ID INCREMENTO .)
+
+
+state 41
+
+    (28) incremento -> ID DECREMENTO .
+
+    PUNTOYCOMA      reduce using rule 28 (incremento -> ID DECREMENTO .)
+    DPAREN          reduce using rule 28 (incremento -> ID DECREMENTO .)
+
+
+state 42
+
+    (24) if -> IF IPAREN . expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> IF IPAREN . expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (31) expresion -> . expresionS MEQ expresionS
+    (32) expresion -> . expresionS MAQ expresionS
+    (33) expresion -> . expresionS MEI expresionS
+    (34) expresion -> . expresionS MAI expresionS
+    (35) expresion -> . expresionS IGUAL expresionS
+    (36) expresion -> . expresionS DISTINTO expresionS
+    (37) expresion -> . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresion                      shift and go to state 58
+    expresionS                     shift and go to state 50
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 43
+
+    (26) while -> WHILE IPAREN . expresion DPAREN DO ILLAVE estatutos DLLAVE
+    (31) expresion -> . expresionS MEQ expresionS
+    (32) expresion -> . expresionS MAQ expresionS
+    (33) expresion -> . expresionS MEI expresionS
+    (34) expresion -> . expresionS MAI expresionS
+    (35) expresion -> . expresionS IGUAL expresionS
+    (36) expresion -> . expresionS DISTINTO expresionS
+    (37) expresion -> . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresion                      shift and go to state 59
+    expresionS                     shift and go to state 50
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 44
+
+    (30) for -> FOR IPAREN . asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+
+    ID              shift and go to state 61
+
+    asignar                        shift and go to state 60
+
+state 45
+
+    (20) writeln -> WRITELN IPAREN . valor DPAREN PUNTOYCOMA
+    (21) valor -> . CTE
+    (22) valor -> . ID
+    (23) valor -> . STRING
+
+    CTE             shift and go to state 63
+    ID              shift and go to state 64
+    STRING          shift and go to state 65
+
+    valor                          shift and go to state 62
+
+state 46
+
+    (2) variables -> VAR ids DOSPUNTOS TypeOf PUNTOYCOMA .
+
+    BEGIN           reduce using rule 2 (variables -> VAR ids DOSPUNTOS TypeOf PUNTOYCOMA .)
+
+
+state 47
+
+    (10) bloque -> BEGIN PUNTOYCOMA estatutos END PUNTOYCOMA .
+
+    DLLAVE          reduce using rule 10 (bloque -> BEGIN PUNTOYCOMA estatutos END PUNTOYCOMA .)
+
+
+state 48
+
+    (46) factor -> ID .
+
+    MULTIPLICAR     reduce using rule 46 (factor -> ID .)
+    DIVIDIR         reduce using rule 46 (factor -> ID .)
+    AND             reduce using rule 46 (factor -> ID .)
+    MEQ             reduce using rule 46 (factor -> ID .)
+    MAQ             reduce using rule 46 (factor -> ID .)
+    MEI             reduce using rule 46 (factor -> ID .)
+    MAI             reduce using rule 46 (factor -> ID .)
+    IGUAL           reduce using rule 46 (factor -> ID .)
+    DISTINTO        reduce using rule 46 (factor -> ID .)
+    SUMA            reduce using rule 46 (factor -> ID .)
+    RESTA           reduce using rule 46 (factor -> ID .)
+    OR              reduce using rule 46 (factor -> ID .)
+    PUNTOYCOMA      reduce using rule 46 (factor -> ID .)
+    DPAREN          reduce using rule 46 (factor -> ID .)
+
+
+state 49
+
+    (19) asignar -> ID ASSIGNAR expresion . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 66
+
+
+state 50
+
+    (31) expresion -> expresionS . MEQ expresionS
+    (32) expresion -> expresionS . MAQ expresionS
+    (33) expresion -> expresionS . MEI expresionS
+    (34) expresion -> expresionS . MAI expresionS
+    (35) expresion -> expresionS . IGUAL expresionS
+    (36) expresion -> expresionS . DISTINTO expresionS
+    (37) expresion -> expresionS .
+    (38) expresionS -> expresionS . SUMA termino
+    (39) expresionS -> expresionS . RESTA termino
+    (40) expresionS -> expresionS . OR termino
+
+    MEQ             shift and go to state 67
+    MAQ             shift and go to state 68
+    MEI             shift and go to state 69
+    MAI             shift and go to state 70
+    IGUAL           shift and go to state 71
+    DISTINTO        shift and go to state 72
+    PUNTOYCOMA      reduce using rule 37 (expresion -> expresionS .)
+    DPAREN          reduce using rule 37 (expresion -> expresionS .)
+    SUMA            shift and go to state 73
+    RESTA           shift and go to state 74
+    OR              shift and go to state 75
+
+
+state 51
+
+    (41) expresionS -> termino .
+    (42) termino -> termino . MULTIPLICAR factor
+    (43) termino -> termino . DIVIDIR factor
+    (44) termino -> termino . AND factor
+
+    MEQ             reduce using rule 41 (expresionS -> termino .)
+    MAQ             reduce using rule 41 (expresionS -> termino .)
+    MEI             reduce using rule 41 (expresionS -> termino .)
+    MAI             reduce using rule 41 (expresionS -> termino .)
+    IGUAL           reduce using rule 41 (expresionS -> termino .)
+    DISTINTO        reduce using rule 41 (expresionS -> termino .)
+    SUMA            reduce using rule 41 (expresionS -> termino .)
+    RESTA           reduce using rule 41 (expresionS -> termino .)
+    OR              reduce using rule 41 (expresionS -> termino .)
+    PUNTOYCOMA      reduce using rule 41 (expresionS -> termino .)
+    DPAREN          reduce using rule 41 (expresionS -> termino .)
+    MULTIPLICAR     shift and go to state 76
+    DIVIDIR         shift and go to state 77
+    AND             shift and go to state 78
+
+
+state 52
+
+    (45) termino -> factor .
+
+    MULTIPLICAR     reduce using rule 45 (termino -> factor .)
+    DIVIDIR         reduce using rule 45 (termino -> factor .)
+    AND             reduce using rule 45 (termino -> factor .)
+    MEQ             reduce using rule 45 (termino -> factor .)
+    MAQ             reduce using rule 45 (termino -> factor .)
+    MEI             reduce using rule 45 (termino -> factor .)
+    MAI             reduce using rule 45 (termino -> factor .)
+    IGUAL           reduce using rule 45 (termino -> factor .)
+    DISTINTO        reduce using rule 45 (termino -> factor .)
+    SUMA            reduce using rule 45 (termino -> factor .)
+    RESTA           reduce using rule 45 (termino -> factor .)
+    OR              reduce using rule 45 (termino -> factor .)
+    PUNTOYCOMA      reduce using rule 45 (termino -> factor .)
+    DPAREN          reduce using rule 45 (termino -> factor .)
+
+
+state 53
+
+    (47) factor -> CTE .
+
+    MULTIPLICAR     reduce using rule 47 (factor -> CTE .)
+    DIVIDIR         reduce using rule 47 (factor -> CTE .)
+    AND             reduce using rule 47 (factor -> CTE .)
+    MEQ             reduce using rule 47 (factor -> CTE .)
+    MAQ             reduce using rule 47 (factor -> CTE .)
+    MEI             reduce using rule 47 (factor -> CTE .)
+    MAI             reduce using rule 47 (factor -> CTE .)
+    IGUAL           reduce using rule 47 (factor -> CTE .)
+    DISTINTO        reduce using rule 47 (factor -> CTE .)
+    SUMA            reduce using rule 47 (factor -> CTE .)
+    RESTA           reduce using rule 47 (factor -> CTE .)
+    OR              reduce using rule 47 (factor -> CTE .)
+    PUNTOYCOMA      reduce using rule 47 (factor -> CTE .)
+    DPAREN          reduce using rule 47 (factor -> CTE .)
+
+
+state 54
+
+    (48) factor -> IPAREN . expresion DPAREN
+    (31) expresion -> . expresionS MEQ expresionS
+    (32) expresion -> . expresionS MAQ expresionS
+    (33) expresion -> . expresionS MEI expresionS
+    (34) expresion -> . expresionS MAI expresionS
+    (35) expresion -> . expresionS IGUAL expresionS
+    (36) expresion -> . expresionS DISTINTO expresionS
+    (37) expresion -> . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresion                      shift and go to state 79
+    expresionS                     shift and go to state 50
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 55
+
+    (49) factor -> TRUE .
+
+    MULTIPLICAR     reduce using rule 49 (factor -> TRUE .)
+    DIVIDIR         reduce using rule 49 (factor -> TRUE .)
+    AND             reduce using rule 49 (factor -> TRUE .)
+    MEQ             reduce using rule 49 (factor -> TRUE .)
+    MAQ             reduce using rule 49 (factor -> TRUE .)
+    MEI             reduce using rule 49 (factor -> TRUE .)
+    MAI             reduce using rule 49 (factor -> TRUE .)
+    IGUAL           reduce using rule 49 (factor -> TRUE .)
+    DISTINTO        reduce using rule 49 (factor -> TRUE .)
+    SUMA            reduce using rule 49 (factor -> TRUE .)
+    RESTA           reduce using rule 49 (factor -> TRUE .)
+    OR              reduce using rule 49 (factor -> TRUE .)
+    PUNTOYCOMA      reduce using rule 49 (factor -> TRUE .)
+    DPAREN          reduce using rule 49 (factor -> TRUE .)
+
+
+state 56
+
+    (50) factor -> FALSE .
+
+    MULTIPLICAR     reduce using rule 50 (factor -> FALSE .)
+    DIVIDIR         reduce using rule 50 (factor -> FALSE .)
+    AND             reduce using rule 50 (factor -> FALSE .)
+    MEQ             reduce using rule 50 (factor -> FALSE .)
+    MAQ             reduce using rule 50 (factor -> FALSE .)
+    MEI             reduce using rule 50 (factor -> FALSE .)
+    MAI             reduce using rule 50 (factor -> FALSE .)
+    IGUAL           reduce using rule 50 (factor -> FALSE .)
+    DISTINTO        reduce using rule 50 (factor -> FALSE .)
+    SUMA            reduce using rule 50 (factor -> FALSE .)
+    RESTA           reduce using rule 50 (factor -> FALSE .)
+    OR              reduce using rule 50 (factor -> FALSE .)
+    PUNTOYCOMA      reduce using rule 50 (factor -> FALSE .)
+    DPAREN          reduce using rule 50 (factor -> FALSE .)
+
+
+state 57
+
+    (51) factor -> NOT . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    factor                         shift and go to state 80
+
+state 58
+
+    (24) if -> IF IPAREN expresion . DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> IF IPAREN expresion . DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+
+    DPAREN          shift and go to state 81
+
+
+state 59
+
+    (26) while -> WHILE IPAREN expresion . DPAREN DO ILLAVE estatutos DLLAVE
+
+    DPAREN          shift and go to state 82
+
+
+state 60
+
+    (30) for -> FOR IPAREN asignar . expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (31) expresion -> . expresionS MEQ expresionS
+    (32) expresion -> . expresionS MAQ expresionS
+    (33) expresion -> . expresionS MEI expresionS
+    (34) expresion -> . expresionS MAI expresionS
+    (35) expresion -> . expresionS IGUAL expresionS
+    (36) expresion -> . expresionS DISTINTO expresionS
+    (37) expresion -> . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresion                      shift and go to state 83
+    expresionS                     shift and go to state 50
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 61
+
+    (19) asignar -> ID . ASSIGNAR expresion PUNTOYCOMA
+
+    ASSIGNAR        shift and go to state 39
+
+
+state 62
+
+    (20) writeln -> WRITELN IPAREN valor . DPAREN PUNTOYCOMA
+
+    DPAREN          shift and go to state 84
+
+
+state 63
+
+    (21) valor -> CTE .
+
+    DPAREN          reduce using rule 21 (valor -> CTE .)
+
+
+state 64
+
+    (22) valor -> ID .
+
+    DPAREN          reduce using rule 22 (valor -> ID .)
+
+
+state 65
+
+    (23) valor -> STRING .
+
+    DPAREN          reduce using rule 23 (valor -> STRING .)
+
+
+state 66
+
+    (19) asignar -> ID ASSIGNAR expresion PUNTOYCOMA .
+
+    ID              reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    IF              reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    WHILE           reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    FOR             reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    WRITELN         reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    END             reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    PUNTOYCOMA      reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    DLLAVE          reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    CTE             reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    IPAREN          reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    TRUE            reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    FALSE           reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    NOT             reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+    DPAREN          reduce using rule 19 (asignar -> ID ASSIGNAR expresion PUNTOYCOMA .)
+
+
+state 67
+
+    (31) expresion -> expresionS MEQ . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresionS                     shift and go to state 85
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 68
+
+    (32) expresion -> expresionS MAQ . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresionS                     shift and go to state 86
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 69
+
+    (33) expresion -> expresionS MEI . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresionS                     shift and go to state 87
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 70
+
+    (34) expresion -> expresionS MAI . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresionS                     shift and go to state 88
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 71
+
+    (35) expresion -> expresionS IGUAL . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresionS                     shift and go to state 89
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 72
+
+    (36) expresion -> expresionS DISTINTO . expresionS
+    (38) expresionS -> . expresionS SUMA termino
+    (39) expresionS -> . expresionS RESTA termino
+    (40) expresionS -> . expresionS OR termino
+    (41) expresionS -> . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    expresionS                     shift and go to state 90
+    termino                        shift and go to state 51
+    factor                         shift and go to state 52
+
+state 73
+
+    (38) expresionS -> expresionS SUMA . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    termino                        shift and go to state 91
+    factor                         shift and go to state 52
+
+state 74
+
+    (39) expresionS -> expresionS RESTA . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    termino                        shift and go to state 92
+    factor                         shift and go to state 52
+
+state 75
+
+    (40) expresionS -> expresionS OR . termino
+    (42) termino -> . termino MULTIPLICAR factor
+    (43) termino -> . termino DIVIDIR factor
+    (44) termino -> . termino AND factor
+    (45) termino -> . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    termino                        shift and go to state 93
+    factor                         shift and go to state 52
+
+state 76
+
+    (42) termino -> termino MULTIPLICAR . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    factor                         shift and go to state 94
+
+state 77
+
+    (43) termino -> termino DIVIDIR . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    factor                         shift and go to state 95
+
+state 78
+
+    (44) termino -> termino AND . factor
+    (46) factor -> . ID
+    (47) factor -> . CTE
+    (48) factor -> . IPAREN expresion DPAREN
+    (49) factor -> . TRUE
+    (50) factor -> . FALSE
+    (51) factor -> . NOT factor
+
+    ID              shift and go to state 48
+    CTE             shift and go to state 53
+    IPAREN          shift and go to state 54
+    TRUE            shift and go to state 55
+    FALSE           shift and go to state 56
+    NOT             shift and go to state 57
+
+    factor                         shift and go to state 96
+
+state 79
+
+    (48) factor -> IPAREN expresion . DPAREN
+
+    DPAREN          shift and go to state 97
+
+
+state 80
+
+    (51) factor -> NOT factor .
+
+    MULTIPLICAR     reduce using rule 51 (factor -> NOT factor .)
+    DIVIDIR         reduce using rule 51 (factor -> NOT factor .)
+    AND             reduce using rule 51 (factor -> NOT factor .)
+    MEQ             reduce using rule 51 (factor -> NOT factor .)
+    MAQ             reduce using rule 51 (factor -> NOT factor .)
+    MEI             reduce using rule 51 (factor -> NOT factor .)
+    MAI             reduce using rule 51 (factor -> NOT factor .)
+    IGUAL           reduce using rule 51 (factor -> NOT factor .)
+    DISTINTO        reduce using rule 51 (factor -> NOT factor .)
+    SUMA            reduce using rule 51 (factor -> NOT factor .)
+    RESTA           reduce using rule 51 (factor -> NOT factor .)
+    OR              reduce using rule 51 (factor -> NOT factor .)
+    PUNTOYCOMA      reduce using rule 51 (factor -> NOT factor .)
+    DPAREN          reduce using rule 51 (factor -> NOT factor .)
+
+
+state 81
+
+    (24) if -> IF IPAREN expresion DPAREN . THEN ILLAVE estatutos DLLAVE
+    (25) if -> IF IPAREN expresion DPAREN . THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+
+    THEN            shift and go to state 98
+
+
+state 82
+
+    (26) while -> WHILE IPAREN expresion DPAREN . DO ILLAVE estatutos DLLAVE
+
+    DO              shift and go to state 99
+
+
+state 83
+
+    (30) for -> FOR IPAREN asignar expresion . PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+
+    PUNTOYCOMA      shift and go to state 100
+
+
+state 84
+
+    (20) writeln -> WRITELN IPAREN valor DPAREN . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 101
+
+
+state 85
+
+    (31) expresion -> expresionS MEQ expresionS .
+    (38) expresionS -> expresionS . SUMA termino
+    (39) expresionS -> expresionS . RESTA termino
+    (40) expresionS -> expresionS . OR termino
+
+    PUNTOYCOMA      reduce using rule 31 (expresion -> expresionS MEQ expresionS .)
+    DPAREN          reduce using rule 31 (expresion -> expresionS MEQ expresionS .)
+    SUMA            shift and go to state 73
+    RESTA           shift and go to state 74
+    OR              shift and go to state 75
+
+
+state 86
+
+    (32) expresion -> expresionS MAQ expresionS .
+    (38) expresionS -> expresionS . SUMA termino
+    (39) expresionS -> expresionS . RESTA termino
+    (40) expresionS -> expresionS . OR termino
+
+    PUNTOYCOMA      reduce using rule 32 (expresion -> expresionS MAQ expresionS .)
+    DPAREN          reduce using rule 32 (expresion -> expresionS MAQ expresionS .)
+    SUMA            shift and go to state 73
+    RESTA           shift and go to state 74
+    OR              shift and go to state 75
+
+
+state 87
+
+    (33) expresion -> expresionS MEI expresionS .
+    (38) expresionS -> expresionS . SUMA termino
+    (39) expresionS -> expresionS . RESTA termino
+    (40) expresionS -> expresionS . OR termino
+
+    PUNTOYCOMA      reduce using rule 33 (expresion -> expresionS MEI expresionS .)
+    DPAREN          reduce using rule 33 (expresion -> expresionS MEI expresionS .)
+    SUMA            shift and go to state 73
+    RESTA           shift and go to state 74
+    OR              shift and go to state 75
+
+
+state 88
+
+    (34) expresion -> expresionS MAI expresionS .
+    (38) expresionS -> expresionS . SUMA termino
+    (39) expresionS -> expresionS . RESTA termino
+    (40) expresionS -> expresionS . OR termino
+
+    PUNTOYCOMA      reduce using rule 34 (expresion -> expresionS MAI expresionS .)
+    DPAREN          reduce using rule 34 (expresion -> expresionS MAI expresionS .)
+    SUMA            shift and go to state 73
+    RESTA           shift and go to state 74
+    OR              shift and go to state 75
+
+
+state 89
+
+    (35) expresion -> expresionS IGUAL expresionS .
+    (38) expresionS -> expresionS . SUMA termino
+    (39) expresionS -> expresionS . RESTA termino
+    (40) expresionS -> expresionS . OR termino
+
+    PUNTOYCOMA      reduce using rule 35 (expresion -> expresionS IGUAL expresionS .)
+    DPAREN          reduce using rule 35 (expresion -> expresionS IGUAL expresionS .)
+    SUMA            shift and go to state 73
+    RESTA           shift and go to state 74
+    OR              shift and go to state 75
+
+
+state 90
+
+    (36) expresion -> expresionS DISTINTO expresionS .
+    (38) expresionS -> expresionS . SUMA termino
+    (39) expresionS -> expresionS . RESTA termino
+    (40) expresionS -> expresionS . OR termino
+
+    PUNTOYCOMA      reduce using rule 36 (expresion -> expresionS DISTINTO expresionS .)
+    DPAREN          reduce using rule 36 (expresion -> expresionS DISTINTO expresionS .)
+    SUMA            shift and go to state 73
+    RESTA           shift and go to state 74
+    OR              shift and go to state 75
+
+
+state 91
+
+    (38) expresionS -> expresionS SUMA termino .
+    (42) termino -> termino . MULTIPLICAR factor
+    (43) termino -> termino . DIVIDIR factor
+    (44) termino -> termino . AND factor
+
+    MEQ             reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    MAQ             reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    MEI             reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    MAI             reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    IGUAL           reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    DISTINTO        reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    SUMA            reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    RESTA           reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    OR              reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    PUNTOYCOMA      reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    DPAREN          reduce using rule 38 (expresionS -> expresionS SUMA termino .)
+    MULTIPLICAR     shift and go to state 76
+    DIVIDIR         shift and go to state 77
+    AND             shift and go to state 78
+
+
+state 92
+
+    (39) expresionS -> expresionS RESTA termino .
+    (42) termino -> termino . MULTIPLICAR factor
+    (43) termino -> termino . DIVIDIR factor
+    (44) termino -> termino . AND factor
+
+    MEQ             reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    MAQ             reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    MEI             reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    MAI             reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    IGUAL           reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    DISTINTO        reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    SUMA            reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    RESTA           reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    OR              reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    PUNTOYCOMA      reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    DPAREN          reduce using rule 39 (expresionS -> expresionS RESTA termino .)
+    MULTIPLICAR     shift and go to state 76
+    DIVIDIR         shift and go to state 77
+    AND             shift and go to state 78
+
+
+state 93
+
+    (40) expresionS -> expresionS OR termino .
+    (42) termino -> termino . MULTIPLICAR factor
+    (43) termino -> termino . DIVIDIR factor
+    (44) termino -> termino . AND factor
+
+    MEQ             reduce using rule 40 (expresionS -> expresionS OR termino .)
+    MAQ             reduce using rule 40 (expresionS -> expresionS OR termino .)
+    MEI             reduce using rule 40 (expresionS -> expresionS OR termino .)
+    MAI             reduce using rule 40 (expresionS -> expresionS OR termino .)
+    IGUAL           reduce using rule 40 (expresionS -> expresionS OR termino .)
+    DISTINTO        reduce using rule 40 (expresionS -> expresionS OR termino .)
+    SUMA            reduce using rule 40 (expresionS -> expresionS OR termino .)
+    RESTA           reduce using rule 40 (expresionS -> expresionS OR termino .)
+    OR              reduce using rule 40 (expresionS -> expresionS OR termino .)
+    PUNTOYCOMA      reduce using rule 40 (expresionS -> expresionS OR termino .)
+    DPAREN          reduce using rule 40 (expresionS -> expresionS OR termino .)
+    MULTIPLICAR     shift and go to state 76
+    DIVIDIR         shift and go to state 77
+    AND             shift and go to state 78
+
+
+state 94
+
+    (42) termino -> termino MULTIPLICAR factor .
+
+    MULTIPLICAR     reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    DIVIDIR         reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    AND             reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    MEQ             reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    MAQ             reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    MEI             reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    MAI             reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    IGUAL           reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    DISTINTO        reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    SUMA            reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    RESTA           reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    OR              reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    PUNTOYCOMA      reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+    DPAREN          reduce using rule 42 (termino -> termino MULTIPLICAR factor .)
+
+
+state 95
+
+    (43) termino -> termino DIVIDIR factor .
+
+    MULTIPLICAR     reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    DIVIDIR         reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    AND             reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    MEQ             reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    MAQ             reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    MEI             reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    MAI             reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    IGUAL           reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    DISTINTO        reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    SUMA            reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    RESTA           reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    OR              reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    PUNTOYCOMA      reduce using rule 43 (termino -> termino DIVIDIR factor .)
+    DPAREN          reduce using rule 43 (termino -> termino DIVIDIR factor .)
+
+
+state 96
+
+    (44) termino -> termino AND factor .
+
+    MULTIPLICAR     reduce using rule 44 (termino -> termino AND factor .)
+    DIVIDIR         reduce using rule 44 (termino -> termino AND factor .)
+    AND             reduce using rule 44 (termino -> termino AND factor .)
+    MEQ             reduce using rule 44 (termino -> termino AND factor .)
+    MAQ             reduce using rule 44 (termino -> termino AND factor .)
+    MEI             reduce using rule 44 (termino -> termino AND factor .)
+    MAI             reduce using rule 44 (termino -> termino AND factor .)
+    IGUAL           reduce using rule 44 (termino -> termino AND factor .)
+    DISTINTO        reduce using rule 44 (termino -> termino AND factor .)
+    SUMA            reduce using rule 44 (termino -> termino AND factor .)
+    RESTA           reduce using rule 44 (termino -> termino AND factor .)
+    OR              reduce using rule 44 (termino -> termino AND factor .)
+    PUNTOYCOMA      reduce using rule 44 (termino -> termino AND factor .)
+    DPAREN          reduce using rule 44 (termino -> termino AND factor .)
+
+
+state 97
+
+    (48) factor -> IPAREN expresion DPAREN .
+
+    MULTIPLICAR     reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    DIVIDIR         reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    AND             reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    MEQ             reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    MAQ             reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    MEI             reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    MAI             reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    IGUAL           reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    DISTINTO        reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    SUMA            reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    RESTA           reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    OR              reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    PUNTOYCOMA      reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+    DPAREN          reduce using rule 48 (factor -> IPAREN expresion DPAREN .)
+
+
+state 98
+
+    (24) if -> IF IPAREN expresion DPAREN THEN . ILLAVE estatutos DLLAVE
+    (25) if -> IF IPAREN expresion DPAREN THEN . ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+
+    ILLAVE          shift and go to state 102
+
+
+state 99
+
+    (26) while -> WHILE IPAREN expresion DPAREN DO . ILLAVE estatutos DLLAVE
+
+    ILLAVE          shift and go to state 103
+
+
+state 100
+
+    (30) for -> FOR IPAREN asignar expresion PUNTOYCOMA . incremento DPAREN ILLAVE estatutos DLLAVE
+    (27) incremento -> . ID INCREMENTO
+    (28) incremento -> . ID DECREMENTO
+    (29) incremento -> . asignar
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+
+    ID              shift and go to state 106
+
+    asignar                        shift and go to state 104
+    incremento                     shift and go to state 105
+
+state 101
+
+    (20) writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .
+
+    ID              reduce using rule 20 (writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .)
+    IF              reduce using rule 20 (writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .)
+    WHILE           reduce using rule 20 (writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .)
+    FOR             reduce using rule 20 (writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .)
+    WRITELN         reduce using rule 20 (writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .)
+    END             reduce using rule 20 (writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .)
+    DLLAVE          reduce using rule 20 (writeln -> WRITELN IPAREN valor DPAREN PUNTOYCOMA .)
+
+
+state 102
+
+    (24) if -> IF IPAREN expresion DPAREN THEN ILLAVE . estatutos DLLAVE
+    (25) if -> IF IPAREN expresion DPAREN THEN ILLAVE . estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (17) estatutos -> . estatuto estatutos
+    (18) estatutos -> . empty
+    (11) estatuto -> . asignar
+    (12) estatuto -> . if
+    (13) estatuto -> . while
+    (14) estatuto -> . for
+    (15) estatuto -> . writeln
+    (16) estatuto -> . incremento PUNTOYCOMA
+    (52) empty -> .
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+    (24) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (26) while -> . WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+    (30) for -> . FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (20) writeln -> . WRITELN IPAREN valor DPAREN PUNTOYCOMA
+    (27) incremento -> . ID INCREMENTO
+    (28) incremento -> . ID DECREMENTO
+    (29) incremento -> . asignar
+
+    DLLAVE          reduce using rule 52 (empty -> .)
+    ID              shift and go to state 25
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    FOR             shift and go to state 28
+    WRITELN         shift and go to state 29
+
+    estatutos                      shift and go to state 107
+    estatuto                       shift and go to state 17
+    empty                          shift and go to state 18
+    asignar                        shift and go to state 19
+    if                             shift and go to state 20
+    while                          shift and go to state 21
+    for                            shift and go to state 22
+    writeln                        shift and go to state 23
+    incremento                     shift and go to state 24
+
+state 103
+
+    (26) while -> WHILE IPAREN expresion DPAREN DO ILLAVE . estatutos DLLAVE
+    (17) estatutos -> . estatuto estatutos
+    (18) estatutos -> . empty
+    (11) estatuto -> . asignar
+    (12) estatuto -> . if
+    (13) estatuto -> . while
+    (14) estatuto -> . for
+    (15) estatuto -> . writeln
+    (16) estatuto -> . incremento PUNTOYCOMA
+    (52) empty -> .
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+    (24) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (26) while -> . WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+    (30) for -> . FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (20) writeln -> . WRITELN IPAREN valor DPAREN PUNTOYCOMA
+    (27) incremento -> . ID INCREMENTO
+    (28) incremento -> . ID DECREMENTO
+    (29) incremento -> . asignar
+
+    DLLAVE          reduce using rule 52 (empty -> .)
+    ID              shift and go to state 25
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    FOR             shift and go to state 28
+    WRITELN         shift and go to state 29
+
+    estatutos                      shift and go to state 108
+    estatuto                       shift and go to state 17
+    empty                          shift and go to state 18
+    asignar                        shift and go to state 19
+    if                             shift and go to state 20
+    while                          shift and go to state 21
+    for                            shift and go to state 22
+    writeln                        shift and go to state 23
+    incremento                     shift and go to state 24
+
+state 104
+
+    (29) incremento -> asignar .
+
+    DPAREN          reduce using rule 29 (incremento -> asignar .)
+
+
+state 105
+
+    (30) for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento . DPAREN ILLAVE estatutos DLLAVE
+
+    DPAREN          shift and go to state 109
+
+
+state 106
+
+    (27) incremento -> ID . INCREMENTO
+    (28) incremento -> ID . DECREMENTO
+    (19) asignar -> ID . ASSIGNAR expresion PUNTOYCOMA
+
+    INCREMENTO      shift and go to state 40
+    DECREMENTO      shift and go to state 41
+    ASSIGNAR        shift and go to state 39
+
+
+state 107
+
+    (24) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos . DLLAVE
+    (25) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos . DLLAVE ELSE ILLAVE estatutos DLLAVE
+
+    DLLAVE          shift and go to state 110
+
+
+state 108
+
+    (26) while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos . DLLAVE
+
+    DLLAVE          shift and go to state 111
+
+
+state 109
+
+    (30) for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN . ILLAVE estatutos DLLAVE
+
+    ILLAVE          shift and go to state 112
+
+
+state 110
+
+    (24) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .
+    (25) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE . ELSE ILLAVE estatutos DLLAVE
+
+    ID              reduce using rule 24 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .)
+    IF              reduce using rule 24 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .)
+    WHILE           reduce using rule 24 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .)
+    FOR             reduce using rule 24 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .)
+    WRITELN         reduce using rule 24 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .)
+    END             reduce using rule 24 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .)
+    DLLAVE          reduce using rule 24 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE .)
+    ELSE            shift and go to state 113
+
+
+state 111
+
+    (26) while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .
+
+    ID              reduce using rule 26 (while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .)
+    IF              reduce using rule 26 (while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .)
+    WHILE           reduce using rule 26 (while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .)
+    FOR             reduce using rule 26 (while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .)
+    WRITELN         reduce using rule 26 (while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .)
+    END             reduce using rule 26 (while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .)
+    DLLAVE          reduce using rule 26 (while -> WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE .)
+
+
+state 112
+
+    (30) for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE . estatutos DLLAVE
+    (17) estatutos -> . estatuto estatutos
+    (18) estatutos -> . empty
+    (11) estatuto -> . asignar
+    (12) estatuto -> . if
+    (13) estatuto -> . while
+    (14) estatuto -> . for
+    (15) estatuto -> . writeln
+    (16) estatuto -> . incremento PUNTOYCOMA
+    (52) empty -> .
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+    (24) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (26) while -> . WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+    (30) for -> . FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (20) writeln -> . WRITELN IPAREN valor DPAREN PUNTOYCOMA
+    (27) incremento -> . ID INCREMENTO
+    (28) incremento -> . ID DECREMENTO
+    (29) incremento -> . asignar
+
+    DLLAVE          reduce using rule 52 (empty -> .)
+    ID              shift and go to state 25
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    FOR             shift and go to state 28
+    WRITELN         shift and go to state 29
+
+    asignar                        shift and go to state 19
+    incremento                     shift and go to state 24
+    estatutos                      shift and go to state 114
+    estatuto                       shift and go to state 17
+    empty                          shift and go to state 18
+    if                             shift and go to state 20
+    while                          shift and go to state 21
+    for                            shift and go to state 22
+    writeln                        shift and go to state 23
+
+state 113
+
+    (25) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE . ILLAVE estatutos DLLAVE
+
+    ILLAVE          shift and go to state 115
+
+
+state 114
+
+    (30) for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos . DLLAVE
+
+    DLLAVE          shift and go to state 116
+
+
+state 115
+
+    (25) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE . estatutos DLLAVE
+    (17) estatutos -> . estatuto estatutos
+    (18) estatutos -> . empty
+    (11) estatuto -> . asignar
+    (12) estatuto -> . if
+    (13) estatuto -> . while
+    (14) estatuto -> . for
+    (15) estatuto -> . writeln
+    (16) estatuto -> . incremento PUNTOYCOMA
+    (52) empty -> .
+    (19) asignar -> . ID ASSIGNAR expresion PUNTOYCOMA
+    (24) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
+    (25) if -> . IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+    (26) while -> . WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE
+    (30) for -> . FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+    (20) writeln -> . WRITELN IPAREN valor DPAREN PUNTOYCOMA
+    (27) incremento -> . ID INCREMENTO
+    (28) incremento -> . ID DECREMENTO
+    (29) incremento -> . asignar
+
+    DLLAVE          reduce using rule 52 (empty -> .)
+    ID              shift and go to state 25
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    FOR             shift and go to state 28
+    WRITELN         shift and go to state 29
+
+    estatutos                      shift and go to state 117
+    estatuto                       shift and go to state 17
+    empty                          shift and go to state 18
+    asignar                        shift and go to state 19
+    if                             shift and go to state 20
+    while                          shift and go to state 21
+    for                            shift and go to state 22
+    writeln                        shift and go to state 23
+    incremento                     shift and go to state 24
+
+state 116
+
+    (30) for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .
+
+    ID              reduce using rule 30 (for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .)
+    IF              reduce using rule 30 (for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .)
+    WHILE           reduce using rule 30 (for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .)
+    FOR             reduce using rule 30 (for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .)
+    WRITELN         reduce using rule 30 (for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .)
+    END             reduce using rule 30 (for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .)
+    DLLAVE          reduce using rule 30 (for -> FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE .)
+
+
+state 117
+
+    (25) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos . DLLAVE
+
+    DLLAVE          shift and go to state 118
+
+
+state 118
+
+    (25) if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .
+
+    ID              reduce using rule 25 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .)
+    IF              reduce using rule 25 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .)
+    WHILE           reduce using rule 25 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .)
+    FOR             reduce using rule 25 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .)
+    WRITELN         reduce using rule 25 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .)
+    END             reduce using rule 25 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .)
+    DLLAVE          reduce using rule 25 (if -> IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE .)
+
