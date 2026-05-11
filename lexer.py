@@ -1,15 +1,19 @@
+# Se importa la librería Lex para fase léxica
 import ply.lex as lex
 
 #Palabras reservadas
-
+# Se definen todas las palabras reservadas que estarán en el lenguaje y su nombre como TOKEN
 reserved = {
+
     'program': 'PROGRAM',
+    #'main': 'MAIN',
     'var': 'VAR',
     'begin': 'BEGIN',
     'end': 'END',
     'int': 'INT',
     'float': 'FLOAT',
     'bool': 'BOOL',
+    'string': 'STRING',
     'if': 'IF',
     'then': 'THEN',
     'else': 'ELSE',
@@ -25,7 +29,7 @@ reserved = {
 }
 
 #Lista de tokens
-
+# Se definen los nombres de los TOKENS existentes y se agrega la lista con los nombres de los TOKENS de las palabras reservadas.
 tokens = [
     'ID',
     'CTE',
@@ -82,6 +86,7 @@ t_COMA = r','
 t_ignore = ' \t'  # Ignorar espacios y tabulaciones
 
 #Funciona para que cada vez que se encuentra un salto de linea, se incremente el numero de linea del lexer
+# Salto de linea (Tabs)
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
@@ -94,15 +99,22 @@ def t_error(t):
     print(f"Caracter ilegal '{t.value[0]}' en la línea {t.lexer.lineno}")
     t.lexer.skip(1)
 
+# Reconoce secuencias que empiecen con letras y continuen con letras o números
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
     t.type = reserved.get(t.value, 'ID')  # Verificar si es una palabra reservada
+    # Si es reservada la asigna según la que sea, si no se queda como ID
     return t
 
-
+# Reconoce numeros enteros, convierte el texto
 def t_CTE(t):
     r'\d+'
     t.value = int(t.value)
+    return t
+
+def t_STRING(t):
+    r'\".*?\"'
+    t.value = t.value[1:-1]  # quitar las comillas
     return t
 
 
@@ -121,9 +133,24 @@ lexer = lex.lex()
 #         end
 #     }
 #     '''
+if __name__ == '__main__':
+    data = '''
+    program main{
+	var i,n,x : int;
+	begin;
+		writeln("factorial for");
+		x:=1;
+		n:=5;	
+		for (i:=1;i<n;i++){
+			x := x * i;
+		}
+		writeln(x);
+	end;
+}
+    '''
 
-#     lexer.input(data)
+    lexer.input(data)
 
-#     for tok in lexer:
-#         print(tok)
+    for tok in lexer:
+        print(tok)
 
