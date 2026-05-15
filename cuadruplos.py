@@ -16,7 +16,7 @@ def nuevo_temporal():
 def generar_cuadruplo(operador, operando1, operando2, resultado):
     cuadruplo = [operador, operando1, operando2, resultado]
     cuadruplos.append(cuadruplo)
-    return resultado
+    return len(cuadruplos)-1
 
 #Esta funcion devuelve la posicion del siguiente cuadruplo es como un cont 
 def sig_cuadruplo():
@@ -37,7 +37,10 @@ def sacar_operandos():
         raise Exception("Error: No hay operandos en la pila")   
     return pila_operandos.pop()
 
-
+def top_operando():
+    if not pila_operandos:
+        raise Exception("Error: No hay operandos en la pila")   
+    return pila_operandos[-1]
 
 #Esto es para los operadores, metodos para meter y sacar de la pila de operadores
 def meter_operadores(operador):
