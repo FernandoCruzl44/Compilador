@@ -4,6 +4,8 @@ import ply.yacc as yacc
 # se importa la lista de tokes definida en lexer.py
 from lexer import tokens
 
+# se importan las funciones definidas en cuadruplos.py
+from cuadruplos import *  
 
 # DEFINICION DE REGLAS GRAMATICALES
 # P -> Programa
@@ -50,7 +52,7 @@ def p_S_estatuto(p):
                     | while 
                     | for 
                     | writeln
-                    | incremento PUNTOYCOMA
+                    | incremento_puntocoma
     '''
 
 def p_estatutos(p):
@@ -59,17 +61,30 @@ def p_estatutos(p):
                     | empty
     '''
 
+
+# A_base --> asignacion base como apoyo para fors
+def p_asignar_base(p):
+    '''
+        asignar_base : ID ASSIGNAR expresion
+    '''
+    valor = sacar_operandos()
+    generar_cuadruplo(':=', valor, None, p[1]) # P[1] es el primer simbolo (ID en este caso)
+    p[0] = p[1] # guarda el ID para el for
+
 # A -> Estatuto Asignacion
 def p_A_asignacion(p):
     '''
-        asignar : ID ASSIGNAR expresion PUNTOYCOMA
+        asignar : asignar_base PUNTOYCOMA
     '''
+
 
 # W -> Estatuto Writeln
 def p_W_writeln(p):
     '''
         writeln : WRITELN IPAREN valor DPAREN PUNTOYCOMA
     '''
+    arg = p[3]
+    generar_cuadruplo('WRITELN', None, None, arg )
 
 def p_Val_valor(p):
     '''
@@ -77,32 +92,100 @@ def p_Val_valor(p):
                 | ID
                 | STRING
     '''
+    p[0] = p[1]
 
 # IF -> Estatuto if
 def p_IF_if(p):
     '''
-    if : IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE
-       | IF IPAREN expresion DPAREN THEN ILLAVE estatutos DLLAVE ELSE ILLAVE estatutos DLLAVE
+        if : IF IPAREN expresion DPAREN marca_gotoF THEN ILLAVE estatutos DLLAVE
+           | IF IPAREN expresion DPAREN marca_gotoF THEN ILLAVE estatutos DLLAVE marca_goto ELSE ILLAVE estatutos DLLAVE
     '''
+
+    #checar si hay elses
+    if len(p) == 10:
+        # No hay else --> GotoF
+        rellenar_salto(sacar_saltos(), sig_cuadruplo())
+    else:
+        # hay else --> Goto
+        rellenar_salto(sacar_saltos(), sig_cuadruplo())
+ 
+def p_marca_gotoF(p):
+    '''marca_gotoF : empty'''
+
+    condicion = sacar_operandos()
+    salto_falso = generar_cuadruplo('GotoF', condicion, None, None)
+    meter_saltos(salto_falso)
+ 
+def p_marca_goto(p):
+    '''marca_goto : empty'''
+    salto_true = generar_cuadruplo('Goto', None, None, None)
+    rellenar_salto(sacar_saltos(), sig_cuadruplo())
+    meter_saltos(salto_true)
 
 # WHILE -> Estatuto while
 def p_WHILE_while(p):
     '''
-        while : WHILE IPAREN expresion DPAREN DO ILLAVE estatutos DLLAVE 
+        while : WHILE marca_inicio IPAREN expresion marca_gotoF DPAREN DO ILLAVE estatutos DLLAVE
     '''
+    
+    salto_falso  = sacar_saltos()
+    inicio_loop  = sacar_saltos() 
+    # Regresa al inicio
+    generar_cuadruplo('Goto', None, None, inicio_loop)
+    # Rellena el GotoF 
+    rellenar_salto(salto_falso, sig_cuadruplo())
+ 
+def p_marca_inicio(p):
+    '''marca_inicio : empty'''
+    # Guarda la posición antes de evaluar la condición
+    meter_saltos(sig_cuadruplo())
 
-def p_incremento(p):
-    '''
-    incremento : ID INCREMENTO
-               | ID DECREMENTO
-               | asignar
-    '''
 
 # FOR -> Estatuto for
 def p_FOR_for(p):
     '''
-        for : FOR IPAREN asignar expresion PUNTOYCOMA incremento DPAREN ILLAVE estatutos DLLAVE
+        for : FOR IPAREN asignar_base PUNTOYCOMA marca_inicio expresion marca_gotoF PUNTOYCOMA incremento_expr DPAREN ILLAVE estatutos DLLAVE
     '''
+    salto_falso = sacar_saltos()
+    inicio_cond = sacar_saltos()
+ 
+    # Cuadruplo incremento/decremento
+    var, op = p[9]
+    if op == '++':
+        generar_cuadruplo('+', var, 1, var)
+    elif op == '--':
+        generar_cuadruplo('-', var, 1, var)
+        
+    # Si op es None significa que en asignar_base se generó su cuádruplo
+ 
+    generar_cuadruplo('Goto', None, None, inicio_cond)
+    # Rellena el GotoF para salir del for
+    rellenar_salto(salto_falso, sig_cuadruplo())
+
+def p_incremento_expr(p):
+    '''
+    incremento_expr : ID INCREMENTO
+               | ID DECREMENTO
+               | asignar_base
+    '''
+    if len(p) == 3:
+        p[0] = (p[1], p[2])
+    else:
+        # asignar_base ya hizo su cuádruplo
+        # regresa (id, None)
+        p[0] = (p[1], None)
+
+def p_incremento_puntocoma(p):
+    '''
+        incremento_puntocoma : ID INCREMENTO PUNTOYCOMA
+                        | ID DECREMENTO PUNTOYCOMA
+    '''
+    var = p[1]
+    op  = p[2]
+    if op == '++':
+        generar_cuadruplo('+', var, 1, var)
+    else:
+        generar_cuadruplo('-', var, 1, var)
 
 # E -> Expresion
 def p_E_expresion(p):
@@ -115,6 +198,12 @@ def p_E_expresion(p):
                     | expresionS DISTINTO expresionS
                     | expresionS 
     '''
+    if len(p) == 4:
+        op2 = sacar_operandos()
+        op1 = sacar_operandos()
+        temp = nuevo_temporal()
+        generar_cuadruplo(p[2], op1, op2, temp)
+        meter_operandos(temp)
 
 def p_ES_expresionS(p):
     '''
@@ -123,9 +212,16 @@ def p_ES_expresionS(p):
                         | expresionS OR termino 
                         | termino
     '''
+    if len(p) == 4:
+        op2 = sacar_operandos()
+        op1 = sacar_operandos()
+        temp = nuevo_temporal()
+        generar_cuadruplo(p[2], op1, op2, temp)
+        meter_operandos(temp)
 
 
-# DUDA AQUI
+
+
 def p_T_termino(p):
     '''
         termino :   termino MULTIPLICAR factor 
@@ -133,18 +229,52 @@ def p_T_termino(p):
                     | termino AND factor 
                     | factor
     '''
+    if len(p) == 4:
+        op2 = sacar_operandos()
+        op1 = sacar_operandos()
+        temp = nuevo_temporal()
+        generar_cuadruplo(p[2], op1, op2, temp)
+        meter_operandos(temp)
 
-#DUDA AQUI
-def p_factor(p):
+# se dividen los factores para facilidad para hacer los cuadruplos
+def p_factor_id(p):
     '''
     factor : ID
-           | CTE
-           | IPAREN expresion DPAREN
-           | TRUE
-           | FALSE
-           | NOT factor
     '''
+    meter_operandos(p[1])
 
+def p_factor_cte(p):
+    '''
+    factor : CTE
+    '''
+    meter_operandos(p[1])
+
+def p_factor_true(p):
+    '''
+    factor : TRUE
+    '''
+    meter_operandos(True)
+
+def p_factor_false(p):
+    '''
+    factor : FALSE
+    '''
+    meter_operandos(False)
+
+def p_factor_grupo(p):
+    '''
+    factor : IPAREN expresion DPAREN
+    '''
+    pass # el resultado ya esta en la pila 
+
+def p_factor_not(p):
+    '''
+    factor : NOT factor
+    '''
+    operando = sacar_operandos()
+    temp = nuevo_temporal()
+    generar_cuadruplo('NOT', operando, None, temp)
+    meter_operandos(temp)
 
 
 # DUDA QUE HAREMOS CON OP Y OPERANDOR
@@ -237,3 +367,7 @@ if __name__ == '__main__':
 
     result = parser.parse(data)
     print("Parseo exitoso:", result)
+    print("Cuádruplos generados:")
+    for i, cuad in enumerate(cuadruplos):
+        print(i, cuad)
+
