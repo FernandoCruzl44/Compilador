@@ -1,3 +1,5 @@
+# ESTRUCTURA PARA GENERACION DE CUADRUPLOS
+
 cuadruplos = []
 
 pila_operandos = []

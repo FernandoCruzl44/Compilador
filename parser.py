@@ -1,3 +1,5 @@
+# ANALISIS SINTACTICO + GENERACION DE CUADRUPLOS
+
 # se importa la librería de Yacc
 import ply.yacc as yacc
 

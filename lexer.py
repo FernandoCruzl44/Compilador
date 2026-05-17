@@ -1,3 +1,5 @@
+# DEFINICION DE TOKENS
+
 # Se importa la librería Lex para fase léxica
 import ply.lex as lex
 
