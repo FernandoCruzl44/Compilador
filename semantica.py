@@ -3,6 +3,7 @@
 
 tabla_simbolos = {}
 
+#Esto esta sujeto a revision
 # (Tipo1, Tipo2, Operador) : Tipo_Resultado
 cubo_semantico = {
     # SUMA
@@ -77,6 +78,7 @@ cubo_semantico = {
     ('bool', 'bool', 'and'): 'bool',
     ('bool', 'bool', 'or'): 'bool',
     
+    #De este etngo duda
     # UNARIOS (not) - Lo representamos como tipo2 = None
     ('bool', None, 'not'): 'bool',
 }
