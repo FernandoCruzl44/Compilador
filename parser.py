@@ -403,39 +403,39 @@ parser = yacc.yacc()
 #     '''
 
 # CASO DE PRUEBA IF
-if __name__ == '__main__':
-    data = '''
-    program main{
-	var a,b,x,y,i : int;
-	begin;	
-		writeln("prueba if");
+# if __name__ == '__main__':
+#     data = '''
+#     program main{
+# 	var a,b,x,y,i : int;
+# 	begin;	
+# 		writeln("prueba if");
 
-		a := 5;
-		b :=  a + 3;
-		x := b +5;
-		y := x + a;
+# 		a := 5;
+# 		b :=  a + 3;
+# 		x := b +5;
+# 		y := x + a;
 
-		if( a>b) then
-		{
-			i := a*5+(b+4);
-			writeln("caso true");
-			writeln(a);
-		}else
-		{
-			if(y<x) then
-			{
-				i := x * (b * y);
-				writeln(x);
-				writeln("if anidado");
-			}else
-			{
-				writeln("ultimo caso");
-			}
-		}
-		writeln(i);
-	end;
-}
-    '''
+# 		if( a>b) then
+# 		{
+# 			i := a*5+(b+4);
+# 			writeln("caso true");
+# 			writeln(a);
+# 		}else
+# 		{
+# 			if(y<x) then
+# 			{
+# 				i := x * (b * y);
+# 				writeln(x);
+# 				writeln("if anidado");
+# 			}else
+# 			{
+# 				writeln("ultimo caso");
+# 			}
+# 		}
+# 		writeln(i);
+# 	end;
+# }
+#     '''
 
 #CASO DE PRUEBA WHILE
 # if __name__ == '__main__':
@@ -454,6 +454,43 @@ if __name__ == '__main__':
 # 		writeln(x);
 # 	end;
 # }
+#     '''
+
+
+# CASO PRUEBA ERRORES
+# if __name__ == '__main__':
+#     data = '''
+#     program main{
+#         var a,b,x,y,i,j : int;
+#         begin;
+#             writeln("prueba semantica");
+
+#             a := 5;
+#             b :=  a + 3;
+#             x := b +5;
+#             y := x + a;
+
+#             if ( ( a>b) and (a*5+(b+4)) ) then
+#             {
+#                 i := a*5+(b+4);
+#                 writeln("caso true");
+#                 writeln(a);
+#             }else
+#             {
+#                 if(y<x) then
+#                 {
+#                     i := x * (b * y);
+#                     writeln(x);
+#                     writeln("if anidado");
+#                 }else
+#                 {
+#                     writeln("ultimo caso");
+#                 }
+#             }
+
+#             writeln(i);
+#         end;
+#     }
 #     '''
 
     result = parser.parse(data)
