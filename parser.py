@@ -13,6 +13,8 @@ from cuadruplos import *
 # importar funciones para revisar semantica
 from semantica import *
 
+from interpretador import *
+
 
 # guardar los Ids que vayan apareciendo para luego ver sus tipos
 ids_pendientes = []
@@ -438,23 +440,23 @@ parser = yacc.yacc()
 #     '''
 
 #CASO DE PRUEBA WHILE
-# if __name__ == '__main__':
-#     data = '''
-#     program main{
-# 	var i,n,x : int;
-# 	begin;
-# 		writeln("factorial while");
-# 		n := 5;
-# 		x := 1;
-# 		while (n>=1) do
-# 		{
-# 			x := x * n;
-# 			n--;
-# 		}
-# 		writeln(x);
-# 	end;
-# }
-#     '''
+if __name__ == '__main__':
+    data = '''
+    program main{
+	var i,n,x : int;
+	begin;
+		writeln("factorial while");
+		n := 5;
+		x := 1;
+		while (n>=1) do
+		{
+			x := x * n;
+			n--;
+		}
+		writeln(x);
+	end;
+}
+    '''
 
 
 # CASO PRUEBA ERRORES
@@ -493,17 +495,20 @@ parser = yacc.yacc()
 #     }
 #     '''
 
-    result = parser.parse(data)
-    print("Parseo exitoso:", result)
+result = parser.parse(data)
+print("Parseo exitoso:", result)
 
-    print("\nTabla de símbolos:")
-    for var, tipo in tabla_simbolos.items():
-        print(f"  {var} : {tipo}")
+print("\nTabla de símbolos:")
+for var, tipo in tabla_simbolos.items():
+    print(f"  {var} : {tipo}")
 
-    print("\nTipos de temporales:")
-    for temp, tipo in tipo_temporales.items():
-        print(f"  {temp} : {tipo}")
+print("\nTipos de temporales:")
+for temp, tipo in tipo_temporales.items():
+    print(f"  {temp} : {tipo}")
 
-    print("\nCuádruplos generados:")
-    for i, cuad in enumerate(cuadruplos):
-        print(i, cuad)
+print("\nCuádruplos generados:")
+for i, cuad in enumerate(cuadruplos):
+    print(i, cuad)
+
+print("\n--- Ejecución de la máquina virtual ---")
+interpretar()
