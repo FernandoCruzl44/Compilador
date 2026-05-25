@@ -119,8 +119,6 @@ def p_W_writeln(p):
         writeln : WRITELN IPAREN valor DPAREN PUNTOYCOMA
     '''
     arg = p[3]
-    if isinstance(arg, str) and arg not in tabla_simbolos:
-        arg = f'"{arg}"'  # Si es un string literal sin comillas, se le agregan comillas para que se imprima correctamente
     generar_cuadruplo('WRITELN', None, None, arg )
 
 def p_Val_valor(p):
