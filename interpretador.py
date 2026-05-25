@@ -12,9 +12,13 @@ def interpretar():
             return None
         if isinstance(val, (int, float, bool)):
             return val
-        if isinstance(val,str) and val in memoria:
-            return memoria[val]
-        return val  # Si no es una variable, se asume que es un literal
+        if isinstance(val,str):
+            if val.startswith('"') and val.endswith('"'):
+                return val[1:-1]  # Es un string literal, se quitan las comillas
+            if val in memoria:
+                return memoria[val]
+            raise Exception(f"Error en tiempo de ejecución: La variable '{val}' se usa sin haber sido inicializada (valor indefinido).")
+        return val  
     
     while cuadruplo_index < len(cuadruplos):
         operador, operando1, operando2, resultado = cuadruplos[cuadruplo_index]

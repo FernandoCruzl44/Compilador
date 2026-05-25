@@ -119,6 +119,8 @@ def p_W_writeln(p):
         writeln : WRITELN IPAREN valor DPAREN PUNTOYCOMA
     '''
     arg = p[3]
+    if isinstance(arg, str) and arg not in tabla_simbolos:
+        arg = f'"{arg}"'  # Si es un string literal sin comillas, se le agregan comillas para que se imprima correctamente
     generar_cuadruplo('WRITELN', None, None, arg )
 
 def p_Val_valor(p):
@@ -405,58 +407,58 @@ parser = yacc.yacc()
 #     '''
 
 # CASO DE PRUEBA IF
+if __name__ == '__main__':
+     data = '''
+     program main{
+ 	var a,b,x,y,i : int;
+ 	begin;	
+ 		writeln("prueba if");
+
+ 		a := 5;
+ 		b :=  a + 3;
+ 		x := b +5;
+ 		y := x + a;
+
+ 		if( a>b) then
+ 		{
+ 			i := a*5+(b+4);
+ 			writeln("caso true");
+ 			writeln(a);
+ 		}else
+ 		{
+ 			if(y<x) then
+ 			{
+ 				i := x * (b * y);
+ 				writeln(x);
+ 				writeln("if anidado");
+ 			}else
+ 			{
+ 				writeln("ultimo caso");
+ 			}
+ 		}
+ 		writeln(i);
+ 	end;
+ }
+     '''
+
+#CASO DE PRUEBA WHILE
 # if __name__ == '__main__':
 #     data = '''
 #     program main{
-# 	var a,b,x,y,i : int;
-# 	begin;	
-# 		writeln("prueba if");
-
-# 		a := 5;
-# 		b :=  a + 3;
-# 		x := b +5;
-# 		y := x + a;
-
-# 		if( a>b) then
+# 	var i,n,x : int;
+# 	begin;
+# 		writeln("factorial while");
+# 		n := 5;
+# 		x := 1;
+# 		while (n>=1) do
 # 		{
-# 			i := a*5+(b+4);
-# 			writeln("caso true");
-# 			writeln(a);
-# 		}else
-# 		{
-# 			if(y<x) then
-# 			{
-# 				i := x * (b * y);
-# 				writeln(x);
-# 				writeln("if anidado");
-# 			}else
-# 			{
-# 				writeln("ultimo caso");
-# 			}
+# 			x := x * n;
+# 			n--;
 # 		}
-# 		writeln(i);
+# 		writeln(x);
 # 	end;
 # }
 #     '''
-
-#CASO DE PRUEBA WHILE
-if __name__ == '__main__':
-    data = '''
-    program main{
-	var i,n,x : int;
-	begin;
-		writeln("factorial while");
-		n := 5;
-		x := 1;
-		while (n>=1) do
-		{
-			x := x * n;
-			n--;
-		}
-		writeln(x);
-	end;
-}
-    '''
 
 
 # CASO PRUEBA ERRORES
