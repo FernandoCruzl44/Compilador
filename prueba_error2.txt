@@ -1,0 +1,32 @@
+program main{
+
+	var a,b,x,y,i,j :int;
+	begin;
+		writeln("prueba semantica")
+
+		a := 5;
+		b :=  a + 3;
+		x := b +5;
+		y := x + a;
+
+		if ( ( a* x * (b * y)) or (a*5+(b+4)) ) then
+		{
+			i := a*5+(b+4);
+			writeln("caso true");
+			writeln(a);
+		}else
+		{
+			if(y<x) then
+			{
+				i := x * (b * y);
+				writeln(x);
+				writeln("if anidado");
+			}else
+			{
+				writeln("ultimo caso");
+			}
+		}
+
+		writeln(i);
+	end;
+}

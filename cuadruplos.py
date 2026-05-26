@@ -58,9 +58,4 @@ def meter_saltos(salto):
 def sacar_saltos():
     return pila_saltos.pop()
 
-#Esto es para los tipos, metodos para meter y sacar de la pila de tipos
-def meter_tipos(tipo):
-    pila_tipos.append(tipo)
 
-def sacar_tipos():
-    return pila_tipos.pop()

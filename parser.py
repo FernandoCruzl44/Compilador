@@ -410,5 +410,5 @@ print("\nCuádruplos generados:")
 for i, cuad in enumerate(cuadruplos):
     print(i, cuad)
 
-print("\n--- Ejecución de la máquina virtual ---")
+print("\n Ejecución de la máquina virtual ")
 interpretar()
