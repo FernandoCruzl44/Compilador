@@ -79,7 +79,6 @@ cubo_semantico = {
     ('bool', 'bool', 'and'): 'bool',
     ('bool', 'bool', 'or'): 'bool',
     
-    #De este etngo duda
     # UNARIOS (not) - Lo representamos como tipo2 = None
     ('bool', None, 'not'): 'bool',
 }

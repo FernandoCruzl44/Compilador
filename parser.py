@@ -68,7 +68,6 @@ def p_TypeOf(p):
     p[0] = p[1] # para que en variable si lo tome
 
 # B -> Bloque
-#DUDA BUSCAR COMO HACER RETURNS
 def p_B_bloque(p):
     '''
         bloque : BEGIN PUNTOYCOMA estatutos END PUNTOYCOMA
@@ -370,7 +369,6 @@ def p_factor_not(p):
     p[0] = tipo_res
 
 
-# DUDA QUE HAREMOS CON OP Y OPERANDOR
 # para deteccion/manejo de errores
 def p_error(p):
     if p:
